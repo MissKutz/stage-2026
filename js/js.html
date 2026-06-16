@@ -1,0 +1,89 @@
+Fichier : `index.html`
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Premiers pas en JavaScript</title>
+</head>
+<body>
+
+<h1>Premiers événements JavaScript</h1>
+
+<!-- 1. Clic sur un bouton -->
+<button id="btnBonjour">Dis bonjour</button>
+
+<p id="message"></p>
+
+<!-- 2. Champ avec onfocus / onblur -->
+<p>
+<label for="prenom">Prénom :</label>
+<input type="text" id="prenom">
+<span id="erreurPrenom" style="color:red;"></span>
+</p>
+
+<p>
+<label for="age">Age :</label>
+<input type="text" id="age">
+<span id="erreurAge" style="color:red;"></span>
+</p>
+
+<div id="zoneCouleur" style="width:200px;height:200px;background:gray;text-align:center;line-height:200px;">Passe la souris ici</div>
+
+<script>
+// 1. onclick sur le bouton
+let bouton = document.getElementById("btnBonjour");
+let message = document.getElementById("message");
+
+bouton.onclick = function () {
+message.textContent = "Bonjour, Prénom !";
+};
+
+// 2. onfocus / onblur sur le champ prénom
+let champPrenom = document.getElementById("prenom");
+let erreurPrenom = document.getElementById("erreurPrenom");
+
+// quand le champ prend le focus
+champPrenom.onfocus = function () {
+champPrenom.style.backgroundColor = "#e0f7ff";
+erreurPrenom.textContent = "";
+};
+
+// quand le champ perd le focus (onblur)
+champPrenom.onblur = function () {
+champPrenom.style.backgroundColor = "white";
+
+if (champPrenom.value.trim() === "") {
+erreurPrenom.textContent = "Merci de saisir ton prénom.";
+}
+};
+
+// 3. Validation âge (onblur)
+let champAge = document.getElementById("age");
+let erreurAge = document.getElementById("erreurAge");
+
+champAge.onfocus = function () {
+    champAge.style.backgroundColor = "#e0f7ff";
+    erreurAge.textContent = "";
+};
+
+champAge.onblur = function () {
+    champAge.style.backgroundColor = "white";
+    let age = champAge.value.trim();
+
+    if (age === "" || parseInt(age) < 10) {
+        erreurAge.textContent = "L'âge doit être supérieur ou égal à 10.";
+    }
+    if (champAge.value.trim() === "") {
+        erreurAge.textContent = "Merci de saisir ton âge.";
+    }
+};
+
+// 4. Div qui change de couleur au survol
+let zone = document.getElementById("zoneCouleur");
+zone.onmouseover = () => zone.style.backgroundColor = "red";
+zone.onmouseout = () => zone.style.backgroundColor = "gray";
+</script>
+
+</body>
+</html>
